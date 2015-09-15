@@ -34,11 +34,13 @@ jsEventTrace.trace =
 	function(evt)
 	{
 		'use strict';
-		var logLevel;
+		var logLevel, origEvt;
 
-		if (evt.originalEvent && evt.originalEvent.type)
+		origEvt = evt;
+
+		if (jsEventTrace.jQuery && evt.originalEvent && evt.originalEvent.type)
 		{
-			evt = evt.originalEvent;
+			origEvt = evt.originalEvent;
 		}
 
 		// ['focus', 'focusin', 'mousedown', 'mouseup', 'click'].indexOf(evt.type) === -1
@@ -49,7 +51,7 @@ jsEventTrace.trace =
 		{
 			if (jsEventTrace.eventLevels[logLevel].indexOf(evt.type) !== -1)
 			{
-				console.log(evt.timeStamp, evt.type, evt, evt.target);
+				console.log(evt.timeStamp, evt.type, origEvt, evt.target);
 				break;
 			}
 
