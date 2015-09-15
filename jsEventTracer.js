@@ -5,15 +5,36 @@
  * @copyright Copyright (c) 2015 Yorick Phoenix, All Rights Reserved
  */
 
-/*eslint quotes:0, no-console:0 */
+/*eslint quotes:0, no-console:0, no-mixed-spaces-and-tabs: 0, no-multi-spaces: 0 */
 /*globals console, window, $ */
 
-var jsEventTrace = {jQuery: true};
+var jsEventTrace = {jQuery: false, logLevel: 2};
+
+jsEventTrace.eventLevels    = [];
+jsEventTrace.eventLevels[0] = [];
+jsEventTrace.eventLevels[1] = ['change', 'input', 'click', 'keydown', 'keypress', 'keyup', 'select', 'reset', 'submit'];
+jsEventTrace.eventLevels[2] = ['blur', 'focus', 'focusin', 'focusout',
+							   'mousedown', 'mouseup', 'dblclick'];
+jsEventTrace.eventLevels[3] = ['abort', 'error',  'invalid',
+							   'load', 'beforeunload', 'unload',
+							   'hashchange',
+							   'pageshow', 'pagehide', 'resize', 'scroll',
+							   'online', 'offline',
+							   'contextmenu', 'show',
+							   'copy', 'cut', 'paste',
+							   'toggle',
+							   'beforeprint', 'afterprint',
+							   'storage'];
+jsEventTrace.eventLevels[4] = ['mouseeover', 'mouseenter', 'mousemove', 'mouseleave', 'mouseout',
+							   'mousewheel', 'wheel',
+							   'dragenter', 'dragover', 'dragstart', 'drag', 'dragend', 'dragleave', 'drop',
+							   'touchstart', 'touchmove', 'touchend', 'touchcancel'];
 
 jsEventTrace.trace =
 	function(evt)
 	{
 		'use strict';
+		var logLevel;
 
 		if (evt.originalEvent && evt.originalEvent.type)
 		{
@@ -22,35 +43,38 @@ jsEventTrace.trace =
 
 		// ['focus', 'focusin', 'mousedown', 'mouseup', 'click'].indexOf(evt.type) === -1
 
-		console.log(evt.timeStamp, evt.type, evt, evt.target);
+		logLevel = jsEventTrace.logLevel;
+
+		while (logLevel > 0)
+		{
+			if (jsEventTrace.eventLevels[logLevel].indexOf(evt.type) !== -1)
+			{
+				console.log(evt.timeStamp, evt.type, evt, evt.target);
+				break;
+			}
+
+			logLevel--;
+		}
 	};
 
 jsEventTrace.init =
 	function()
 	{
 		'use strict';
-		var evts;
+		var evts, eventList;
 
 		// http://www.w3schools.com/jsref/dom_obj_event.asp
 
-		evts = ['abort', 'error',
-				'load', 'beforeunload', 'unload',
-				'hashchange',
-				'pageshow', 'pagehide', 'resize', 'scroll',
-				'online', 'offline',
-				'blur', 'change', 'focus', 'focusin', 'focusout', 'input', 'invalid',
-				'reset', 'search', 'select', 'submit',
-//				'moveover', 'mouseenter', 'mousemove', 'mouseleave', 'mouseout',
-				'mousedown', 'mouseup', 'click', 'dblclick',
-				'mousewheel', 'wheel',
-				'touchstart', 'touchmove', 'touchend', 'touchcancel',
-				'contextmenu', 'show',
-				'keydown', 'keypress', 'keyup',
-				'dragenter', 'dragover', 'dragstart', 'drag', 'dragend', 'dragleave', 'drop',
-				'copy', 'cut', 'paste',
-				'toggle',
-				'beforeprint', 'afterprint',
-				'storage'];
+		eventList = '';
+
+		jsEventTrace.eventLevels.forEach(
+			function BuildEventList(events)
+			{
+				eventList += events.join(' ') + ' ';
+			}
+		);
+
+		evts = eventList.split(' ');
 
 		if (jsEventTrace.jQuery)
 		{
@@ -61,7 +85,10 @@ jsEventTrace.init =
 			evts.forEach(
 				function AddListener(evt)
 				{
-					window.addEventListener(evt, jsEventTrace.trace, true);
+					if (evt !== '')
+					{
+						window.addEventListener(evt, jsEventTrace.trace, true);
+					}
 				});
 		}
 	};
