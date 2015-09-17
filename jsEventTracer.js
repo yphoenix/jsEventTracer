@@ -8,7 +8,7 @@
 /*eslint quotes:0, no-console:0, no-mixed-spaces-and-tabs: 0, no-multi-spaces: 0 */
 /*globals console, window, $ */
 
-var jsEventTrace = {jQuery: false, logLevel: 2};
+var jsEventTrace = {jQuery: true, logLevel: 2};
 
 jsEventTrace.eventLevels    = [];
 jsEventTrace.eventLevels[0] = [];
@@ -30,6 +30,14 @@ jsEventTrace.eventLevels[4] = ['mouseeover', 'mouseenter', 'mousemove', 'mousele
 							   'dragenter', 'dragover', 'dragstart', 'drag', 'dragend', 'dragleave', 'drop',
 							   'touchstart', 'touchmove', 'touchend', 'touchcancel'];
 
+jsEventTrace.logEvent =
+	function(evt, origEvt)
+	{
+		'use strict';
+
+		console.log(evt.timeStamp, evt.type, origEvt, evt.target);
+	};
+
 jsEventTrace.trace =
 	function(evt)
 	{
@@ -49,9 +57,10 @@ jsEventTrace.trace =
 
 		while (logLevel > 0)
 		{
-			if (jsEventTrace.eventLevels[logLevel].indexOf(evt.type) !== -1)
+			if (jsEventTrace.eventLevels[logLevel] &&
+				jsEventTrace.eventLevels[logLevel].indexOf(evt.type) !== -1)
 			{
-				console.log(evt.timeStamp, evt.type, origEvt, evt.target);
+				jsEventTrace.logEvent(evt, origEvt);
 				break;
 			}
 
