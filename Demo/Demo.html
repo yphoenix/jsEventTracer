@@ -13,11 +13,11 @@
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 		<meta name="Author" Content="Yorick Phoenix">
 		<title>jsEventTrace Demo</title>
-		<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.js"></script>
+		<link rel="stylesheet" type="text/css" href="Demo.css"/>
 	</head>
 	<body>
 	<h4>Open the Developer Tools and display the console (cmd-opt-I, cmd-shift-I or F12)</h4>
-	<div style="display:inline-block">
+	<div id=leftBlock>
 		<form>
 			<label>Log Level:</label>
 			<select id="menu">
@@ -51,7 +51,7 @@
 			<input type=search placeholder="enter search string" />
 			<p>
 			<textarea>Some sample text</textarea>
-			<div contentEditable=true style="margin-top:10px;width:100px;height:30px;border:solid 1px lightgrey">Editable Div</div>
+			<div id=editDiv contentEditable=true>Editable Div</div>
 			<p>
 			<input type=range />
 			<p>
@@ -62,9 +62,9 @@
 			<button type="submit">Other Submit</button>
 		</form>
 	</div>
-	<div style="display:inline-block;vertical-align:bottom">
-		<div id="mousearound" style="border:1px solid black;width:200px;height:200px;text-align:center;display:inline-block"><p style="margin-top:20%">Mouse Around In Here!</div>
-		<div style="display:inline-block;vertical-align:top">
+	<div id=rightBlock>
+		<div id=mouseAround><p>Mouse Around In Here!</p></div>
+		<div id=results>
 			<pre>
 Client X: <span id=clientX></span> Y: <span id=clientY></span><br>
 Offset X: <span id=offsetX></span> Y: <span id=offsetY></span><br>
@@ -73,8 +73,9 @@ Screen X: <span id=screenX></span> Y: <span id=screenY></span>
 			</pre>
 		</div>
 	</div>
-	<pre><div id=console style="height:300px;overflow-y:scroll;border:1px solid black"></div></pre>
+	<pre><div id=console></div></pre>
 	</body>
-	<script type="text/javascript" src="jsEventTracer.js"></script>
-	<script type="text/javascript" src="TestStub.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.js"></script>
+	<script type="text/javascript" src="../jsEventTracer.js"></script>
+	<script type="text/javascript" src="Demo.js"></script>
 </html>

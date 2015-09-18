@@ -1,3 +1,10 @@
+/**
+ * @package 8 Puzzle
+ * @subpackage JS
+ * @author Yorick Phoenix <yphoenix@scribblings.com>
+ * @copyright Copyright (c) 2015 Yorick Phoenix, All Rights Reserved
+ */
+
 /*eslint quotes:0, no-console:0, no-mixed-spaces-and-tabs: 0, no-multi-spaces: 0 */
 /*globals console, document $ */
 /*globals jsEventTrace */
@@ -38,7 +45,7 @@ $(document).ready(
 					   'dragenter', 'dragover', 'dragstart', 'drag', 'dragend', 'dragleave', 'drop',
 					   'touchstart', 'touchmove', 'touchend', 'touchcancel'];
 
-		$('#mousearound').on(mouseEvents.join(' '),
+		$('#mouseAround').on(mouseEvents.join(' '),
 			function DisplayMouseEvent(evt)
 			{
 				['clientX', 'clientY',
