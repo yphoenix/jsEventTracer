@@ -1,0 +1,52 @@
+/**
+ * @package 8 Puzzle
+ * @subpackage CSS
+ * @author Yorick Phoenix <yphoenix@scribblings.com>
+ * @copyright Copyright (c) 2015 Yorick Phoenix, All Rights Reserved
+ */
+
+#leftBlock
+{
+	display: inline-block;
+}
+
+#rightBlock
+{
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+#editDiv
+{
+	margin-top: 10px;
+	width: 100px;
+	height: 30px;
+	border: solid 1px lightgrey;
+}
+
+#mouseAround
+{
+	border:1px solid black;
+	width: 200px;
+	height: 200px;
+	text-align: center;
+	display: inline-block;
+}
+
+#mouseAround p
+{
+	margin-top: 20%;
+}
+
+#results
+{
+	display: inline-block;
+	vertical-align: top;
+}
+
+#console
+{
+	height: 300px;
+	overflow-y: scroll;
+	border: 1px solid black;
+}
