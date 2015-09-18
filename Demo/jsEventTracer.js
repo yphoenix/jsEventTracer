@@ -10,6 +10,8 @@
 
 var jsEventTrace = {jQuery: true, logLevel: 2};
 
+// http://www.w3schools.com/jsref/dom_obj_event.asp
+
 jsEventTrace.eventLevels    = [];
 jsEventTrace.eventLevels[0] = [];
 jsEventTrace.eventLevels[1] = ['change', 'input', 'click', 'keydown', 'keypress', 'keyup', 'select', 'reset', 'submit'];
@@ -74,8 +76,6 @@ jsEventTrace.init =
 		'use strict';
 		var evts, eventList;
 
-		// http://www.w3schools.com/jsref/dom_obj_event.asp
-
 		eventList = '';
 
 		jsEventTrace.eventLevels.forEach(
@@ -86,6 +86,14 @@ jsEventTrace.init =
 		);
 
 		evts = eventList.split(' ');
+
+		if (jsEventTrace.jQuery &&
+			typeof jQuery !== 'function')
+		{
+			jsEventTrace.jQuery = false;
+
+			console.warn('jsEventTrace jQuery support disabled, jQuery unabvailable');
+		}
 
 		if (jsEventTrace.jQuery)
 		{
