@@ -10,19 +10,35 @@
 /*globals jsEventTrace */
 
 jsEventTrace.logEvent =
-	function(evt, origEvt)
+	function CustomLogEvent(evt, origEvt)
 	{
 		'use strict';
-		var str;
+		var str, lastStamp;
 
 		console.log(evt.timeStamp, evt.type, origEvt, evt.target);
 
-		if (evt.target.id !== 'console')
+		if (evt.target.id !== 'console' &&
+			$('#screenlog').prop('checked'))
 		{
-			str = evt.timeStamp + ' ' + evt.type + ' ' + evt.target.type + '<br>';
+			str = '';
+
+			lastStamp = CustomLogEvent.stamp === undefined ? 0 : CustomLogEvent.stamp;
+
+			if (evt.timeStamp > 0 &&
+				evt.timeStamp - lastStamp > 200)
+			{
+				str += '-------------<br>';
+			}
+
+			str += evt.timeStamp + ' ' + evt.type + ' ' + evt.target.type + '<br>';
 
 			$('#console').append(str);
 			$('#console')[0].scrollTop += 10000;
+
+			if (evt.timeStamp > 0)
+			{
+				CustomLogEvent.stamp = evt.timeStamp;
+			}
 		}
 	};
 
