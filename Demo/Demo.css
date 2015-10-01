@@ -5,7 +5,10 @@
  * @copyright Copyright (c) 2015 Yorick Phoenix, All Rights Reserved
  */
 
-#leftBlock
+#leftBlock,
+#editDiv,
+#readonlyDiv,
+#disabledDiv
 {
 	display: inline-block;
 }
@@ -20,8 +23,25 @@
 {
 	margin-top: 10px;
 	width: 100px;
-	height: 30px;
+	height: 18px;
 	border: solid 1px lightgrey;
+	padding: 5px;
+}
+
+#readonlyDiv,
+#disabledDiv
+{
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 5px;
+	cursor: pointer;
+}
+
+#readonlyDiv:active,
+#disabledDiv:active
+{
+	color: white;
+	background-color: deepskyblue;
 }
 
 #mouseAround
