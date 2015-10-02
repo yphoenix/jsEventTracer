@@ -30,7 +30,21 @@ jsEventTrace.logEvent =
 				str += '-------------<br>';
 			}
 
-			str += evt.timeStamp + ' ' + evt.type + ' ' + evt.target.type + '<br>';
+			str += evt.timeStamp + ' ' + evt.type + ' ' + evt.target.type;
+
+			switch (evt.type)
+			{
+				case'keypress':
+					str += ' [' + evt.charCode + '/' + String.fromCharCode(evt.charCode) + ']';
+					break;
+
+				case'keyup':
+				case'keydown':
+					str += ' [' + evt.keyCode + ']';
+					break;
+			}
+
+			str += '<br>';
 
 			$('#console').append(str);
 			$('#console')[0].scrollTop += 10000;
