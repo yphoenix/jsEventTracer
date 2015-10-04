@@ -32,6 +32,13 @@ jsEventTrace.eventLevels[4] = ['mouseeover', 'mouseenter', 'mousemove', 'mousele
 							   'dragenter', 'dragover', 'dragstart', 'drag', 'dragend', 'dragleave', 'drop',
 							   'touchstart', 'touchmove', 'touchend', 'touchcancel'];
 
+/**
+ * Display an event in the console
+ *
+ * @param {Event} evt	  - Event to be logged
+ * @param {Event} origEvt - Original Event, if jQuery Event model used
+ */
+
 jsEventTrace.logEvent =
 	function(evt, origEvt)
 	{
@@ -39,6 +46,12 @@ jsEventTrace.logEvent =
 
 		console.log(evt.timeStamp, evt.type, origEvt, evt.target);
 	};
+
+/**
+ * Event Handler for all events that we are tracing
+ *
+ * @param {Event} evt
+ */
 
 jsEventTrace.trace =
 	function(evt)
@@ -70,6 +83,10 @@ jsEventTrace.trace =
 		}
 	};
 
+/**
+ * Event Tracer Initialization
+ */
+
 jsEventTrace.init =
 	function()
 	{
@@ -92,7 +109,7 @@ jsEventTrace.init =
 		{
 			jsEventTrace.jQuery = false;
 
-			console.warn('jsEventTrace jQuery support disabled, jQuery unabvailable');
+			console.warn('jsEventTrace jQuery support disabled, jQuery unavailable');
 		}
 
 		if (jsEventTrace.jQuery)
